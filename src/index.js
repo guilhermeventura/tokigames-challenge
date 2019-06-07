@@ -1,3 +1,9 @@
+/**
+ * Our app Main Entry Point.
+ *
+ * @description Configures the application with
+ *              redux/redux-saga and react-router
+ */
 import React from "react";
 import ReactDOM from "react-dom";
 
