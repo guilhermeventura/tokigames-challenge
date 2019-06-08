@@ -1,0 +1,16 @@
+@import "./assets/styles/global";
+@import "./assets/styles/fonts";
+
+@font-face {
+  font-family: "DINOT-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/fonts/DINOT-Regular/DINOT-Regular.ttf");
+}
+
+@font-face {
+  font-family: "DINOT-Bold";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./assets/fonts/DINOT-Bold/DINOT-Bold.ttf");
+}

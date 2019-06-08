@@ -6,19 +6,16 @@
  */
 import React from "react";
 import ReactDOM from "react-dom";
-
-import { Provider } from "react-redux";
-import initStore from "./helpers/store";
-
-import "./index.css";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+
+import initStore from "./helpers/store";
+import AppRoot from "./components/app-root";
+
+import "./index.scss";
 
 const store = initStore();
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <AppRoot store={store} />,
   document.getElementById("tokigames-app")
 );
 

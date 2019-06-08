@@ -9,22 +9,38 @@
 import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import {
-  flightList as reducer,
-  addNewFlight as mySaga
+  flights as reducer,
+  watchFlights as rootSaga
 } from "./../store/ducks/flights-duck";
 import { composeWithDevTools } from "redux-devtools-extension";
+import throttle from "lodash/throttle";
+
+import {
+  loadStateFromLocalStorage,
+  saveStateToLocalStorage
+} from "./localStorage";
 
 export default function() {
+  const persistedState = loadStateFromLocalStorage();
+
   // create the saga middleware
   const sagaMiddleware = createSagaMiddleware();
   // mount it on the Store
   const store = createStore(
     reducer,
+    persistedState,
     composeWithDevTools(applyMiddleware(sagaMiddleware))
   );
 
+  store.subscribe(
+    throttle(() => {
+      saveStateToLocalStorage({
+        flights: store.getState().flights
+      });
+    }, 1000)
+  );
   // then run the saga
-  sagaMiddleware.run(mySaga);
+  sagaMiddleware.run(rootSaga);
 
   return store;
 }
