@@ -7,6 +7,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 This Application was built using the following libraries:
 
 - React
+- React Hooks
+- React Router
 - Redux
 - Redux Saga
 - Lodash
