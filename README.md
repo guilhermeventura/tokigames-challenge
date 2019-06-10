@@ -25,6 +25,7 @@ I've tried to replicate the TokiGames look and feel, but using the Material UI. 
 - Use `react-cosmos` to build a monoRepo of all components used
 - Refactor some unecessary repeated logic(especially on the `AddNewFlightModal` component
 - Refactor the `FlightListToolbar` component to isolate in sub-components the **_sort/filter functionality_**
+- Improve the UX (put some motion on the fetched lists and other things like that)
 
 ## Available Scripts
 
