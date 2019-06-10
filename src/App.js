@@ -1,5 +1,7 @@
 /**
- * APP entry point.
+ * The UI Entry Component
+ *
+ * @description Assemble the components to build our UI
  */
 import React from "react";
 
@@ -10,10 +12,12 @@ import FlightListContainer from "./components/flight-list";
 
 function App() {
   return (
-    <Container maxWidth={"xl"}>
+    <React.Fragment>
       <AppHeaderView />
-      <FlightListContainer />
-    </Container>
+      <Container fixed>
+        <FlightListContainer />
+      </Container>
+    </React.Fragment>
   );
 }
 

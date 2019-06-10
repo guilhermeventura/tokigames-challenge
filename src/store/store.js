@@ -8,17 +8,17 @@
 
 import { createStore, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
-import {
-  flights as reducer,
-  watchFlights as rootSaga
-} from "./../store/ducks/flights-duck";
+
+import reducer from "./ducks/index";
+
+import { initSagas } from "./ducks/flights-duck";
 import { composeWithDevTools } from "redux-devtools-extension";
 import throttle from "lodash/throttle";
 
 import {
   loadStateFromLocalStorage,
   saveStateToLocalStorage
-} from "./localStorage";
+} from "./../helpers/localStorage";
 
 export default function() {
   const persistedState = loadStateFromLocalStorage();
@@ -35,12 +35,18 @@ export default function() {
   store.subscribe(
     throttle(() => {
       saveStateToLocalStorage({
-        flights: store.getState().flights
+        flightsReducer: store.getState().flightsReducer
       });
     }, 1000)
   );
-  // then run the saga
-  sagaMiddleware.run(rootSaga);
+
+  // run the initSagas
+  sagaMiddleware.run(initSagas);
+
+  // @todo
+  store.dispatch({
+    type: "@@flights/FETCH_FLIGHTS"
+  });
 
   return store;
 }

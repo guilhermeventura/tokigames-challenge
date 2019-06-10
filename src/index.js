@@ -1,14 +1,12 @@
 /**
  * Our app Main Entry Point.
  *
- * @description Configures the application with
- *              redux/redux-saga and react-router
  */
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 
-import initStore from "./helpers/store";
+import initStore from "./store/store";
 import AppRoot from "./components/app-root";
 
 import "./index.scss";

@@ -1,3 +1,11 @@
+/**
+ * LocalStorage Helper
+ *
+ * @description Responsible from the Persistance Layer,
+ *              to ensure a PWA approach
+ *
+ *
+ */
 export const loadStateFromLocalStorage = () => {
   try {
     const serializedState = localStorage.getItem("tokigames-app-state");

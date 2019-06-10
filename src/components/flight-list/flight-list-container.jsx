@@ -1,53 +1,79 @@
 /**
  * Flight List Container component
  *
- * @description Is responsible to show and control all
+ * @description Is responsible to show and all
  *              Flights-related UI data
  */
 
 import React from "react";
 import { connect } from "react-redux";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 
-import { FL_TYPES } from "./../../store/ducks/flights-duck";
+import Grid from "@material-ui/core/Grid";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Typography from "@material-ui/core/Typography";
+import Snackbar from "@material-ui/core/Snackbar";
 
 import FlightItemView from "./flight-item";
+import FlightListToolbarView from "./flight-list-toolbar";
 
-const FlightListContainer = ({ flights, addFakeFlight }) => {
+import { getVisibleFlights, sortFlights } from "./../../store/selectors";
+
+export const FlightListContainer = props => {
+  const renderFlightList = flights => {
+    if (!flights) return;
+
+    let flightList = [];
+
+    flights.map((flight, index) => {
+      flightList.push(
+        <Grid item key={flight.flightId}>
+          <FlightItemView flightData={flight} />
+        </Grid>
+      );
+    });
+
+    return flightList;
+  };
+
   return (
-    <Grid container>
-      <Grid item sm={12}>
-        <Button onClick={addFakeFlight}>Fake add</Button>
+    <React.Fragment>
+      <FlightListToolbarView />
+      {props.hasSucceded && (
+        <Snackbar
+          autoHideDuration={4000}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center"
+          }}
+          open={props.hasSucceded}
+          message={<span>Flight Saved!</span>}
+        />
+      )}
+      <Grid container justify="center" spacing={4}>
+        {props.isFetching ? (
+          <Grid item align="center">
+            <CircularProgress size={80} />
+            <Typography variant="subtitle1">Fetching Flights...</Typography>
+          </Grid>
+        ) : (
+          renderFlightList(props.flights)
+        )}
       </Grid>
-
-      <Grid item>
-        <FlightItemView flightData={flights} sm={4} />
-      </Grid>
-    </Grid>
+    </React.Fragment>
   );
 };
 
 const mapStateToProps = state => ({
-  flights: state.flights[0]
+  flights: getVisibleFlights(
+    sortFlights(state.flightsReducer.flights, state.sortType),
+    state.sortFilter
+  ),
+  sortFilter: state.sortFilter,
+  isFetching: state.flightsReducer.isFetching,
+  hasSucceded: state.hasSucceded
 });
-
-const mapDispatchToProps = dispatch => {
-  return {
-    addFakeFlight: () =>
-      dispatch({
-        type: FL_TYPES.ADD_NEW_FLIGHT,
-        flight: {
-          departure: "MOCK CARA",
-          arrival: "Antalya",
-          departureTime: 1561627856.0,
-          arrivalTime: 1564410656.0
-        }
-      })
-  };
-};
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(FlightListContainer);

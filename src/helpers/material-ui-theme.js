@@ -1,8 +1,14 @@
+/**
+ * MaterialUI Theming file
+ *
+ * @description Creates the UI Theme for the application components
+ */
 import { createMuiTheme } from "@material-ui/core/styles";
 
 export const tokiTheme = createMuiTheme({
   palette: {
-    primary: { main: "#0b2b51" }
+    primary: { main: "#0b2b51" },
+    secondary: { main: "#faac18" }
   },
   typography: {
     fontFamily: "DINOT-Regular, Roboto, sans-serif",
@@ -15,5 +21,3 @@ export const tokiTheme = createMuiTheme({
     h6: { fontFamily: "DINOT-Bold, Roboto, sans-serif" }
   }
 });
-
-console.info(tokiTheme);
