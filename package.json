@@ -13,7 +13,7 @@
     "immutable": "^4.0.0-rc.12",
     "jest-enzyme": "^7.0.2",
     "lodash": "^4.17.11",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "node-uuid": "^1.4.8",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
